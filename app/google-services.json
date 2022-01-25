@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "103344360207",
+    "project_id": "tok-ko",
+    "storage_bucket": "tok-ko.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:103344360207:android:35919604b0814706b28c7a",
+        "android_client_info": {
+          "package_name": "com.nurmiati.tok_ko"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "103344360207-ora752qodia01clvg08v8uh5o9l7qkeo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEfO78LIzuk84SpWQdD1NE-Jw7B8S1S4U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "103344360207-ora752qodia01clvg08v8uh5o9l7qkeo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
