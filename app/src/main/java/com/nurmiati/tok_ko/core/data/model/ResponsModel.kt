@@ -8,6 +8,8 @@ class ResponsModel {
     var transaksis: ArrayList<Transaksi> = ArrayList()
     var user: ArrayList<User> = ArrayList()
     var produklimit: ArrayList<ProdukLimit> = ArrayList()
+    var produkChild: ArrayList<ProdukChild> = ArrayList()
+    var kategori : ArrayList<Kategori> = ArrayList()
 
     var rajaongkir = ModelAlamat()
     var transaksi = Transaksi()
