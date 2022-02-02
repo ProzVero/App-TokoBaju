@@ -104,6 +104,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun getDetail() {
         val data = intent.getStringExtra("extra")
+        val imageToko = intent.getStringExtra("toko_image")
         produkLimit = Gson().fromJson<ProdukLimit>(data, ProdukLimit::class.java)
         produk = Gson().fromJson<Produk>(data, Produk::class.java)
 
@@ -114,7 +115,7 @@ class DetailActivity : AppCompatActivity() {
         txt_deskripsi.text = produkLimit.deskripsi
         namabarang.text = produkLimit.name
         val imageUrl = Util.produkUrl + produkLimit.image
-        val logo_image = Util.logoToko + produkLimit.user.image
+        val logo_image = Util.logoToko + imageToko
 
         Picasso.get()
             .load(imageUrl)

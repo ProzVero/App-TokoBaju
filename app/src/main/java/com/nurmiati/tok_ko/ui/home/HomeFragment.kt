@@ -20,10 +20,7 @@ import com.nurmiati.tok_ko.R
 import com.nurmiati.tok_ko.core.data.adapter.AdapterKategori
 import com.nurmiati.tok_ko.core.data.adapter.AdapterProdukLimit
 import com.nurmiati.tok_ko.core.data.adapter.AdapterSliderView
-import com.nurmiati.tok_ko.core.data.model.Kategori
-import com.nurmiati.tok_ko.core.data.model.ProdukChild
-import com.nurmiati.tok_ko.core.data.model.ProdukLimit
-import com.nurmiati.tok_ko.core.data.model.ResponsModel
+import com.nurmiati.tok_ko.core.data.model.*
 import com.nurmiati.tok_ko.core.data.source.ApiConfig
 import com.nurmiati.tok_ko.util.SharedPref
 import com.smarteist.autoimageslider.SliderView
@@ -33,7 +30,6 @@ import retrofit2.Response
 
 class HomeFragment : Fragment() {
     lateinit var rv_data: RecyclerView
-    lateinit var btn_all: TextView
     lateinit var search_data: ImageView
     lateinit var s: SharedPref
     lateinit var shimmerFrameLayout: ShimmerFrameLayout
@@ -49,12 +45,13 @@ class HomeFragment : Fragment() {
         return view
     }
 
+    private var listUser : ArrayList<User> = ArrayList()
     private var listKategori : ArrayList<Kategori> = ArrayList()
     private fun setDisplay() {
         val layoutManager = LinearLayoutManager(activity)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
 
-        rv_data.adapter = AdapterKategori(requireActivity(), listKategori)
+        rv_data.adapter = AdapterKategori(requireActivity(), listKategori, listUser)
         rv_data.layoutManager = layoutManager
     }
 
@@ -83,6 +80,28 @@ class HomeFragment : Fragment() {
             }
 
         })
+
+        ApiConfig.instanceRetrofit.user().enqueue(object : Callback<ResponsModel>{
+            override fun onResponse(
+                call: Call<ResponsModel>,
+                response: Response<ResponsModel>)
+            {
+                shimmerFrameLayout.visibility = View.GONE
+                val res = response.body()!!
+                if (res.success == 1) {
+                    listUser = res.user
+                } else {
+                    //setError(res.message)
+                }
+            }
+
+            override fun onFailure(call: Call<ResponsModel>, t: Throwable) {
+                //shimmerFrameLayout.visibility = View.GONE
+                //setError("Terjadi kesalahan koneksi!")
+                Log.d("Response", "Error: " + t.message)
+            }
+
+        })
     }
 
     private fun setButton() {
@@ -100,8 +119,7 @@ class HomeFragment : Fragment() {
 
     private fun setInit(view: View) {
         val imageSlider = view.findViewById<SliderView>(R.id.imageSlider)
-        rv_data = view.findViewById(R.id.rc_data)
-        btn_all = view.findViewById(R.id.btn_all)
+        rv_data = view.findViewById(R.id.rv_data)
         search_data = view.findViewById(R.id.search_data)
         shimmerFrameLayout = view.findViewById(R.id.shimmer)
 

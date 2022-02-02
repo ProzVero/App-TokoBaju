@@ -34,10 +34,12 @@ class AllProduk : AppCompatActivity() {
     }
 
     private fun getData() {
+        val id = intent.getIntExtra("kategori_id", 1)
+        Log.e("AllProduk","id:$id")
         sw_data.isRefreshing = true
         shimmer.visibility = View.VISIBLE
         rc_data.visibility = View.GONE
-        ApiConfig.instanceRetrofit.produk().enqueue(object : Callback<ResponsModel> {
+        ApiConfig.instanceRetrofit.produkIdKategori(id).enqueue(object : Callback<ResponsModel> {
             override fun onResponse(
                 call: Call<ResponsModel>,
                 response: Response<ResponsModel>,

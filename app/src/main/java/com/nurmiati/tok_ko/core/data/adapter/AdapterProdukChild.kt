@@ -15,13 +15,19 @@ import com.google.gson.Gson
 import com.nurmiati.tok_ko.DetailActivity
 import com.nurmiati.tok_ko.R
 import com.nurmiati.tok_ko.core.data.model.ProdukChild
+import com.nurmiati.tok_ko.core.data.model.ResponsModel
+import com.nurmiati.tok_ko.core.data.model.User
+import com.nurmiati.tok_ko.core.data.source.ApiConfig
 import com.nurmiati.tok_ko.util.Helper
 import com.nurmiati.tok_ko.util.Util
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AdapterProdukChild(var activity: Activity, var data: ArrayList<ProdukChild>) :
+class AdapterProdukChild(var activity: Activity, var data: ArrayList<ProdukChild>, var user : ArrayList<User>) :
     RecyclerView.Adapter<AdapterProdukChild.HolderData>() {
     class HolderData(view: View) : RecyclerView.ViewHolder(view) {
         val tv_nama = view.findViewById<TextView>(R.id.nama_produk)
@@ -46,9 +52,21 @@ class AdapterProdukChild(var activity: Activity, var data: ArrayList<ProdukChild
 
         val imageUrl =
             Util.produkUrl + data[position].image
-        val logo_toko = Util.logoToko + data[position].user.image
+        var image = ""
+        for (i in user){
+            if (i.id == data[position].user_id){
+                val logo_toko = Util.logoToko + i.image
+                image = i.image
+                Picasso.get()
+                    .load(logo_toko)
+                    .placeholder(R.drawable.ic_shopping_bag2)
+                    .error(R.drawable.ic_shopping_bag2)
+                    .into(holder.img_logo)
+            }
+        }
 
-        Log.d("Response " , "Image: "+ data[position].user.image)
+
+        //Log.d("Response " , "Image: "+ data[position].user.image)
 
         Picasso.get()
             .load(imageUrl)
@@ -56,16 +74,11 @@ class AdapterProdukChild(var activity: Activity, var data: ArrayList<ProdukChild
             .error(R.drawable.ic_image)
             .into(holder.tv_gambar)
 
-        Picasso.get()
-            .load(logo_toko)
-            .placeholder(R.drawable.ic_shopping_bag2)
-            .error(R.drawable.ic_shopping_bag2)
-            .into(holder.img_logo)
-
         holder.layout.setOnClickListener {
             val intent = Intent(activity, DetailActivity::class.java)
             val str = Gson().toJson(data[position], ProdukChild::class.java)
             intent.putExtra("extra", str)
+            intent.putExtra("toko_image", image)
             activity.startActivity(intent)
         }
     }

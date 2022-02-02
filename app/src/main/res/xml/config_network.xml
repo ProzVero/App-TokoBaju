@@ -5,6 +5,6 @@
         <domain includeSubdomains="true">10.0.2.2</domain>
         <domain includeSubdomains="true">192.168.1.12</domain>
         <domain includeSubdomains="true">api.rajaongkir.com</domain>
-        <domain includeSubdomains="true">tokobaju.host</domain>
+        <domain includeSubdomains="true">tokobaju.sispasdes.my.id</domain>
     </domain-config>
 </network-security-config>

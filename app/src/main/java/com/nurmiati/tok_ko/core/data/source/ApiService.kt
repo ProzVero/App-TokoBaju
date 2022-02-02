@@ -54,6 +54,9 @@ interface ApiService {
     @GET("kategori")
     fun kategori(): Call<ResponsModel>
 
+    @GET("user")
+    fun user(): Call<ResponsModel>
+
     @GET("produk/kategori/{kategori_id}")
     fun produkId(
         @Path("kategori_id") kategori_id: Int
@@ -66,6 +69,11 @@ interface ApiService {
 
     @GET("produk/kategori_nolimit/{kategori_id}")
     fun produkIdAll(
+        @Path("kategori_id") kategori_id: Int
+    ): Call<ResponsModel>
+
+    @GET("produk/bykategori/{kategori_id}")
+    fun produkIdKategori(
         @Path("kategori_id") kategori_id: Int
     ): Call<ResponsModel>
 

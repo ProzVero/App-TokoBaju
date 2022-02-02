@@ -12,6 +12,5 @@ data class ProdukChild(
     var stok : String,
     var berat : String,
     var user_id : Int,
-    var nama_toko : String,
-    var user: User = User()
+    var nama_toko : String
 )
