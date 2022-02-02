@@ -64,8 +64,9 @@ class AdapterKeranjang(
             .error(R.drawable.ic_image)
             .into(holder.tv_gambar)
 
+        val stokBarang = Integer.valueOf(data[position].stok)
         holder.btn_tambah.setOnClickListener {
-//            if (jumlah >= 10) return@setOnClickListener
+            if (jumlah >= stokBarang) return@setOnClickListener
             jumlah++
             produk.jumlah = jumlah
             update(produk)

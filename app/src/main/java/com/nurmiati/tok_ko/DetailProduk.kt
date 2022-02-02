@@ -1,5 +1,6 @@
 package com.nurmiati.tok_ko
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -73,7 +74,7 @@ class DetailProduk : AppCompatActivity() {
 
         sw_data.setOnRefreshListener { getData() }
         val adapter = AdapterProdukLimit(this, listProduk)
-        search.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 adapter.getSearchData().filter(query)
                 return false
@@ -102,7 +103,8 @@ class DetailProduk : AppCompatActivity() {
         shimmer = findViewById(R.id.shimmer)
 
         btn_kembali.setOnClickListener {
-            onBackPressed()
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }
     }
 

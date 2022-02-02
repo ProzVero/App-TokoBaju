@@ -53,7 +53,7 @@ class PembayaranActivity : AppCompatActivity() {
         val checkout = Gson().fromJson(json, Checkout::class.java)
         checkout.bank = bank.nama
 
-        val dialog = SweetAlertDialog(this,SweetAlertDialog.PROGRESS_TYPE)
+        val dialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
         dialog.titleText = "Loading..."
         dialog.show()
         ApiConfig.instanceRetrofit.checkout(checkout)
@@ -63,31 +63,37 @@ class PembayaranActivity : AppCompatActivity() {
                     response: Response<ResponsModel>,
                 ) {
                     dialog.setCancelable(false)
-                    val res = response.body()!!
-                    if (res.success == 1) {
-                        val jsBank = Gson().toJson(bank, Bank::class.java)
-                        val jsTransaksi = Gson().toJson(res.transaksi, Transaksi::class.java)
-                        val jsCheckout = Gson().toJson(checkout, Checkout::class.java)
-                        Log.d("Respon: ", "Data Bank: " + jsBank + "Data Transaksi: " + jsTransaksi)
+                    if (response.body() == null) {
+                        Log.d("Response", "errors: " + response.message())
+                    }else{
+                        val res = response.body()!!
+                        if (res.success == 1) {
+                            val jsBank = Gson().toJson(bank, Bank::class.java)
+                            val jsTransaksi = Gson().toJson(res.transaksi, Transaksi::class.java)
+                            val jsCheckout = Gson().toJson(checkout, Checkout::class.java)
+                            Log.d("Respon: ", "Data Bank: " + jsBank + "Data Transaksi: " + jsTransaksi)
 
-                        SweetAlertDialog(this@PembayaranActivity, SweetAlertDialog.SUCCESS_TYPE)
-                            .setTitleText("Sukses!")
-                            .setContentText("Anda telah berhasil memilih metode pembayaran, klik tombol untuk melihat detail.")
-                            .setConfirmText("Oke")
-                            .setConfirmClickListener {
-                                val intent = Intent(this@PembayaranActivity, SuksesActivity::class.java)
-                                intent.putExtra("bank", jsBank)
-                                intent.putExtra("transaksi", jsTransaksi)
-                                intent.putExtra("checkout", jsCheckout)
-                                startActivity(intent)
-                                finish()
-                                it.dismissWithAnimation()
-                            }
-                            .show()
-                    } else {
-                        setError(res.message)
-                        dialog.dismissWithAnimation()
+                            SweetAlertDialog(this@PembayaranActivity, SweetAlertDialog.SUCCESS_TYPE)
+                                .setTitleText("Sukses!")
+                                .setContentText("Anda telah berhasil memilih metode pembayaran, klik tombol untuk melihat detail.")
+                                .setConfirmText("Oke")
+                                .setConfirmClickListener {
+                                    val intent =
+                                        Intent(this@PembayaranActivity, SuksesActivity::class.java)
+                                    intent.putExtra("bank", jsBank)
+                                    intent.putExtra("transaksi", jsTransaksi)
+                                    intent.putExtra("checkout", jsCheckout)
+                                    startActivity(intent)
+                                    finish()
+                                    it.dismissWithAnimation()
+                                }
+                                .show()
+                        } else {
+                            setError(res.message)
+                            dialog.dismissWithAnimation()
+                        }
                     }
+
                 }
 
                 override fun onFailure(call: Call<ResponsModel>, t: Throwable) {

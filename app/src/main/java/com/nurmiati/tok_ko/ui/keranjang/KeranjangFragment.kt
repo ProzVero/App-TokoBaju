@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.nurmiati.tok_ko.HomeActivity
 import com.nurmiati.tok_ko.LoginActivity
 import com.nurmiati.tok_ko.PengirimanActivity
 import com.nurmiati.tok_ko.R

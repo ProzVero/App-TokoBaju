@@ -53,10 +53,12 @@ class AdapterProdukChild(var activity: Activity, var data: ArrayList<ProdukChild
         val imageUrl =
             Util.produkUrl + data[position].image
         var image = ""
+        var email = ""
         for (i in user){
             if (i.id == data[position].user_id){
                 val logo_toko = Util.logoToko + i.image
                 image = i.image
+                email = i.email
                 Picasso.get()
                     .load(logo_toko)
                     .placeholder(R.drawable.ic_shopping_bag2)
@@ -79,6 +81,7 @@ class AdapterProdukChild(var activity: Activity, var data: ArrayList<ProdukChild
             val str = Gson().toJson(data[position], ProdukChild::class.java)
             intent.putExtra("extra", str)
             intent.putExtra("toko_image", image)
+            intent.putExtra("toko_email", email)
             activity.startActivity(intent)
         }
     }

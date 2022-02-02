@@ -37,6 +37,9 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var txt_hargaproduk: TextView
     private lateinit var namabarang: TextView
     lateinit var txt_deskripsi: TextView
+    lateinit var stok: TextView
+    lateinit var berat: TextView
+    lateinit var email: TextView
     private lateinit var image: ImageView
     private lateinit var btn_kembali: ImageView
     lateinit var btn_keranjang: ImageView
@@ -102,9 +105,11 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getDetail() {
         val data = intent.getStringExtra("extra")
         val imageToko = intent.getStringExtra("toko_image")
+        val emailToko = intent.getStringExtra("toko_email")
         produkLimit = Gson().fromJson<ProdukLimit>(data, ProdukLimit::class.java)
         produk = Gson().fromJson<Produk>(data, Produk::class.java)
 
@@ -114,6 +119,9 @@ class DetailActivity : AppCompatActivity() {
         tv_alamat.text = produkLimit.user.alamat
         txt_deskripsi.text = produkLimit.deskripsi
         namabarang.text = produkLimit.name
+        stok.text = produkLimit.stok + " Biji"
+        berat.text = produkLimit.berat + " Kg"
+        email.text = emailToko
         val imageUrl = Util.produkUrl + produkLimit.image
         val logo_image = Util.logoToko + imageToko
 
@@ -129,17 +137,23 @@ class DetailActivity : AppCompatActivity() {
             .error(R.drawable.ic_image)
             .into(img_logo)
 
+        val stokBarang = Integer.valueOf(produkLimit.stok)
         btn_keranjang.setOnClickListener {
             val produkData = myDb.daoKeranjang().getProduk(produk.id)
-            if (produkData == null) {
-                insert()
+            if (stokBarang <= 0) {
+                setError("Produk yang anda pesan habis!")
             } else {
-                produkData.jumlah = produkData.jumlah + 1
-                update(produkData)
+                if (produkData == null) {
+                    insert()
+                } else {
+                    produkData.jumlah = produkData.jumlah + 1
+                    update(produkData)
+                }
             }
         }
         btn_kembali.setOnClickListener {
-            super.onBackPressed()
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
         }
 
         btn_notifikasi.setOnClickListener {
@@ -150,15 +164,24 @@ class DetailActivity : AppCompatActivity() {
 
         btn_beli.setOnClickListener {
             val produkData = myDb.daoKeranjang().getProduk(produk.id)
-            if (produkData == null) {
-                insert()
+            if (stokBarang <= 0) {
+                setError("Produk yang anda pesan habis!")
             } else {
-                produkData.jumlah = produkData.jumlah + 1
-                update(produkData)
+                if (produkData == null) {
+                    insert()
+                } else {
+                    if (stokBarang <= 0) {
+                        setError("Produk yang anda pesan habis!")
+                    } else {
+                        produkData.jumlah = produkData.jumlah + 1
+                        update(produkData)
+                    }
+                }
+                val intent = Intent("event:keranjang")
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+                onBackPressed()
             }
-            val intent = Intent("event:keranjang")
-            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-            onBackPressed()
+
         }
     }
 
@@ -200,6 +223,9 @@ class DetailActivity : AppCompatActivity() {
         img_logo = findViewById(R.id.img_logo)
         nama_toko = findViewById(R.id.nama_toko)
         tv_alamat = findViewById(R.id.alamat)
+        stok = findViewById(R.id.stok)
+        berat = findViewById(R.id.berat)
+        email = findViewById(R.id.email)
     }
 
     private fun setError(pesan: String) {
