@@ -35,7 +35,7 @@ class AdapterKategori(var activity: Activity, var data: ArrayList<Kategori>, var
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: HolderData, position: Int) {
         holder.txt_kategori.text = data[position].nama_kategori
-        holder.rv_produk.setHasFixedSize(true)
+        //holder.rv_produk.setHasFixedSize(true)
         holder.btn_showall.setOnClickListener {
             val intent = Intent(activity, AllProduk::class.java)
             intent.putExtra("kategori_id", data[position].id)

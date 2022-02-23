@@ -119,7 +119,7 @@ class DetailActivity : AppCompatActivity() {
         tv_alamat.text = produkLimit.user.alamat
         txt_deskripsi.text = produkLimit.deskripsi
         namabarang.text = produkLimit.name
-        stok.text = produkLimit.stok + " Biji"
+        stok.text = produkLimit.stok + " pcs"
         berat.text = produkLimit.berat + " Kg"
         email.text = emailToko
         val imageUrl = Util.produkUrl + produkLimit.image

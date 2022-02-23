@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.nurmiati.tok_ko.DetailActivity
 import com.nurmiati.tok_ko.R
+import com.nurmiati.tok_ko.core.data.model.ProdukChild
 import com.nurmiati.tok_ko.core.data.model.ProdukLimit
 import com.nurmiati.tok_ko.util.Helper
 import com.nurmiati.tok_ko.util.Util
@@ -56,6 +57,7 @@ class AdapterProdukLimit(var activity: Activity, var data: ArrayList<ProdukLimit
             Util.produkUrl + data[position].image
         val logo_toko = Util.logoToko + data[position].user.image
 
+
         Log.d("Response ", "Image: " + data[position].user.image)
 
         Picasso.get()
@@ -85,6 +87,10 @@ class AdapterProdukLimit(var activity: Activity, var data: ArrayList<ProdukLimit
             val intent = Intent(activity, DetailActivity::class.java)
             val str = Gson().toJson(data[position], ProdukLimit::class.java)
             intent.putExtra("extra", str)
+            intent.putExtra("extra", str)
+            intent.putExtra("toko_image", data[position].user.image)
+            intent.putExtra("toko_email", data[position].user.email)
+
             activity.startActivity(intent)
         }
     }

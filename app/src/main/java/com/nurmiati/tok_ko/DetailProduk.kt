@@ -68,7 +68,7 @@ class DetailProduk : AppCompatActivity() {
     private var listProduk: ArrayList<ProdukLimit> = ArrayList()
     private fun setDisplay() {
         val layoutManager = GridLayoutManager(this, 2)
-        rc_data.setHasFixedSize(true);
+        //rc_data.setHasFixedSize(true);
         rc_data.adapter = AdapterProdukLimit(this, listProduk)
         rc_data.layoutManager = layoutManager
 
