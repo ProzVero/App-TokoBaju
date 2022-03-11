@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.nurmiati.tok_ko.DetailActivity
 import com.nurmiati.tok_ko.R
+import com.nurmiati.tok_ko.TokoActivity
 import com.nurmiati.tok_ko.core.data.model.ProdukChild
 import com.nurmiati.tok_ko.core.data.model.ProdukLimit
 import com.nurmiati.tok_ko.util.Helper
@@ -36,6 +37,7 @@ class AdapterProdukLimit(var activity: Activity, var data: ArrayList<ProdukLimit
         val img_logo = view.findViewById<ImageView>(R.id.img_logo)
         val div_status = view.findViewById<LinearLayout>(R.id.div_status)
         val text_status = view.findViewById<TextView>(R.id.text_status)
+        val lay_toko = view.findViewById<LinearLayout>(R.id.lay_toko)
     }
 
     lateinit var contex: Context
@@ -91,6 +93,12 @@ class AdapterProdukLimit(var activity: Activity, var data: ArrayList<ProdukLimit
             intent.putExtra("toko_image", data[position].user.image)
             intent.putExtra("toko_email", data[position].user.email)
 
+            activity.startActivity(intent)
+        }
+
+        holder.lay_toko.setOnClickListener {
+            val intent = Intent(activity, TokoActivity::class.java)
+            intent.putExtra("user_id", data[position].user_id.toString())
             activity.startActivity(intent)
         }
     }

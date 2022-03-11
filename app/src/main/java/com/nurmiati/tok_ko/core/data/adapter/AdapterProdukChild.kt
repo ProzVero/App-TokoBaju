@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.nurmiati.tok_ko.DetailActivity
 import com.nurmiati.tok_ko.R
+import com.nurmiati.tok_ko.TokoActivity
 import com.nurmiati.tok_ko.core.data.model.ProdukChild
 import com.nurmiati.tok_ko.core.data.model.ResponsModel
 import com.nurmiati.tok_ko.core.data.model.User
@@ -36,6 +38,7 @@ class AdapterProdukChild(var activity: Activity, var data: ArrayList<ProdukChild
         val tv_gambar = view.findViewById<ImageView>(R.id.image)
         val layout = view.findViewById<CardView>(R.id.layout)
         val img_logo = view.findViewById<ImageView>(R.id.img_logo)
+        val lay_toko = view.findViewById<LinearLayout>(R.id.lay_toko)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderData {
@@ -82,6 +85,12 @@ class AdapterProdukChild(var activity: Activity, var data: ArrayList<ProdukChild
             intent.putExtra("extra", str)
             intent.putExtra("toko_image", image)
             intent.putExtra("toko_email", email)
+            activity.startActivity(intent)
+        }
+        //Log.e("userid",data[position].user_id.toString())
+        holder.lay_toko.setOnClickListener {
+            val intent = Intent(activity, TokoActivity::class.java)
+            intent.putExtra("user_id", data[position].user_id.toString())
             activity.startActivity(intent)
         }
     }

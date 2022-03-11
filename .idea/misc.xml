@@ -11,6 +11,7 @@
         <entry key="..\:/DataApp/Android/TokoBaju/app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="..\:/DataApp/Android/TokoBaju/app/src/main/res/layout/activity_main.xml" value="0.10572916666666667" />
         <entry key="..\:/DataApp/Android/TokoBaju/app/src/main/res/layout/activity_pengiriman.xml" value="0.17777777777777778" />
+        <entry key="..\:/DataApp/Android/TokoBaju/app/src/main/res/layout/activity_toko.xml" value="0.22" />
         <entry key="..\:/DataApp/Android/TokoBaju/app/src/main/res/layout/fragment_home.xml" value="0.17" />
         <entry key="..\:/DataApp/Android/TokoBaju/app/src/main/res/layout/item_all_produk.xml" value="0.2" />
         <entry key="..\:/DataApp/Android/TokoBaju/app/src/main/res/layout/item_produk.xml" value="0.2" />
@@ -20,7 +21,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.nurmiati.tok_ko.DetailActivity
 import com.nurmiati.tok_ko.R
+import com.nurmiati.tok_ko.TokoActivity
 import com.nurmiati.tok_ko.core.data.model.Produk
 import com.nurmiati.tok_ko.util.Helper
 import com.nurmiati.tok_ko.util.Util
@@ -38,6 +39,7 @@ class AdapterProduk(var activity: Activity, var data: ArrayList<Produk>) :
         val layout = view.findViewById<CardView>(R.id.layout)
         val div_status = view.findViewById<LinearLayout>(R.id.div_status)
         val text_status = view.findViewById<TextView>(R.id.text_status)
+        val lay_toko = view.findViewById<LinearLayout>(R.id.lay_toko)
     }
     lateinit var contex: Context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderData {
@@ -78,6 +80,12 @@ class AdapterProduk(var activity: Activity, var data: ArrayList<Produk>) :
             val intent = Intent(activity, DetailActivity::class.java)
             intent.putExtra("extra", str)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            activity.startActivity(intent)
+        }
+
+        holder.lay_toko.setOnClickListener {
+            val intent = Intent(activity, TokoActivity::class.java)
+            intent.putExtra("user_id", data[position].user_id.toString())
             activity.startActivity(intent)
         }
     }

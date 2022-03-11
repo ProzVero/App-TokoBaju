@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tokko"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AllProduk"></activity>
+        <activity
+            android:name=".TokoActivity"
+            android:exported="false" />
+        <activity android:name=".AllProduk" />
         <activity android:name=".DetailProduk" />
         <activity android:name=".SuksesActivity" />
         <activity android:name=".ListAlamat" />

@@ -54,6 +54,7 @@ class DetailActivity : AppCompatActivity() {
     lateinit var nama_toko: TextView
     lateinit var tv_alamat: TextView
     lateinit var rc_data: RecyclerView
+    lateinit var lay_toko: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
@@ -183,6 +184,11 @@ class DetailActivity : AppCompatActivity() {
             }
 
         }
+        lay_toko.setOnClickListener {
+            val intent = Intent(this, TokoActivity::class.java)
+            intent.putExtra("user_id", produkLimit.user_id.toString())
+            startActivity(intent)
+        }
     }
 
     private fun insert() {
@@ -226,6 +232,7 @@ class DetailActivity : AppCompatActivity() {
         stok = findViewById(R.id.stok)
         berat = findViewById(R.id.berat)
         email = findViewById(R.id.email)
+        lay_toko = findViewById(R.id.lay_toko)
     }
 
     private fun setError(pesan: String) {
